@@ -3,9 +3,7 @@ package com.itsol.recruit.config;
 import com.itsol.recruit.core.Constants;
 import com.itsol.recruit.security.jwt.JWTConfigurer;
 import com.itsol.recruit.security.jwt.TokenProvider;
-
 import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -49,16 +47,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/swagger-resources/**", "/v2/api-docs").permitAll()
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
-//                .antMatchers("/api/authenticate").permitAll()
-//                .antMatchers(Constants.Api.Path.AUTH+ "/**").permitAll()
                 .antMatchers("/api/logout").permitAll()
                 .antMatchers("/api/register").permitAll()
-                .antMatchers("/api/admin/**").hasAnyRole(Constants.Role.ADMIN)
-                .antMatchers("/api/je/**").hasAnyRole(Constants.Role.JE, Constants.Role.ADMIN)
-                .antMatchers("/api/user/**").hasAnyRole(Constants.Role.JE, Constants.Role.ADMIN,Constants.Role.USER)
+                .antMatchers("/api/user/**").permitAll()
                 .antMatchers("/api/public/**").permitAll()
-
-                .antMatchers("/api/**").permitAll()
+                .antMatchers("/api/auth/**").permitAll()
+                .antMatchers("/api/admin/**").hasRole("ADMIN")
+                .antMatchers("/api/je/**").hasAnyRole("ADMIN", "JE")
                 .and()
                 .httpBasic()
                 .and()

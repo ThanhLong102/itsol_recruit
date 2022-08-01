@@ -16,7 +16,10 @@ public final class Constants {
     public static final class OTP{
         public static final Long EXPIRED_TIME = 5 * 60 * 1000L;
     }
-
+    public static final class Gender{
+        public static final String MALE = "Nam";
+        public static final String FEMALE="Nữ";
+    }
     public static final class Status{
         public static final String PENDING = "pending";
         public static final String APPROVED = "approved";
@@ -48,9 +51,11 @@ public final class Constants {
 
             public static final String PUBLIC = PREFIX + "/public";
             public static final String ADMIN = PREFIX + "/admin";
+            public static final String USER = PREFIX + "/user";
+            public static final String JE = PREFIX + "/je";
             public static final String AUTH = PREFIX + "/auth";
-//            public static final String ACCOUNT = PREFIX + "/account";
-//            public static final String ON_BOARDING = PUBLIC + "/on-boarding";
+            public static final String ACCOUNT = PREFIX + "/account";
+            public static final String ON_BOARDING = PUBLIC + "/on-boarding";
 
             public static class Auth {
                 public static final String LOGIN = "/login";
@@ -63,10 +68,11 @@ public final class Constants {
 
             public static class Account {
                 public static final String REGISTER = "/register";
-                public static final String CHANGE_PASSWORD = "/change-password";
-                public static final String RESET_PASSWORD = "/reset-password";
-                public static final String RESET_PASSWORD_INIT = RESET_PASSWORD + "/init";
-                public static final String RESET_PASSWORD_FINISH = RESET_PASSWORD + "/finish";
+                public static final String ACTIVE_ACCOUNT = "/active-account";
+                public static final String CHANGE_PASSWORD = "/change-password";//login r mới đổi - bỏ
+                public static final String RESET_PASSWORD = "/reset-password";// bắt đầu chuyển sang trang nhập mail
+                public static final String RESET_PASSWORD_INIT = RESET_PASSWORD + "/init";// nhập mail và ấn nhận otp
+                public static final String RESET_PASSWORD_FINISH = RESET_PASSWORD + "/finish";// gửi mật khẩu mới,mail otp để đổi mật khẩu
             }
 
             public static class Admin {
@@ -76,7 +82,6 @@ public final class Constants {
     }
     public static class ValidationMessage {
         public static final String FIELD_IS_REQUIRED = "validation.mustNotBeNull";
-
         public static final String INVALID_PHONE_NUMBER = "validation.invalidPhoneNumber";
         public static final String INVALID_OTP = "validation.invalidOTP";
         public static final String INVALID_PASSWORD = "validation.invalidPassword";
@@ -107,7 +112,5 @@ public final class Constants {
         public static final String INVALID_MAX_VALUE = "validation.invalidMaxValue";
         public static final String INVALID_SIZE_VALUE = "validation.invalidSizeValue";
         public static final String NOT_CONTAIN_WHITE_SPACE = "validation.notContainWhiteSpace";
-
     }
-
 }

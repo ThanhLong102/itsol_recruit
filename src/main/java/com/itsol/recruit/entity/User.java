@@ -24,16 +24,16 @@ public class User{
     @Column(name = "name")
     String name;
 
-    @Column(name = "email")
+    @Column(name = "email",unique=true)
     String email;
 
-    @Column(name = "user_name")
+    @Column(name = "user_name",unique=true)
     String userName;
 
     @Column(name = "password")
     String password;
 
-    @Column(name = "phone_number")
+    @Column(name = "phone_number",unique=true)
     String phoneNumber;
 
     @Column(name = "home_town")
@@ -46,7 +46,7 @@ public class User{
     String gender;
 
     @Column(name = "birth_day")
-    Date birthDay;
+    Date birthday;
 
     @Column(name = "is_delete")
     @Type(type = "org.hibernate.type.NumericBooleanType")
@@ -63,4 +63,10 @@ public class User{
     @Column(name = "activate")
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean isActive;
+
+    @Column(name = "first_time_login")
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    private boolean firstTimeLogin;
+
+
 }

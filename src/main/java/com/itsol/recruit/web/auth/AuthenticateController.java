@@ -1,12 +1,12 @@
 package com.itsol.recruit.web.auth;
 
 import com.itsol.recruit.core.Constants;
+import com.itsol.recruit.dto.MessageDto;
 import com.itsol.recruit.dto.UserDTO;
-import com.itsol.recruit.entity.User;
 import com.itsol.recruit.security.jwt.JWTFilter;
 import com.itsol.recruit.security.jwt.TokenProvider;
 import com.itsol.recruit.service.AuthenticateService;
-import com.itsol.recruit.service.UserService;
+import com.itsol.recruit.service.OtpService;
 import com.itsol.recruit.web.vm.LoginVM;
 import io.swagger.annotations.Api;
 import org.springframework.http.HttpHeaders;
@@ -31,26 +31,52 @@ public class AuthenticateController {
 
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
-    private final UserService userService;
-
     private final TokenProvider tokenProvider;
 
-    public AuthenticateController(AuthenticateService authenticateService, AuthenticationManagerBuilder authenticationManagerBuilder, UserService userService, TokenProvider tokenProvider) {
+    private final OtpService otpService;
+
+    public AuthenticateController(
+            AuthenticateService authenticateService, AuthenticationManagerBuilder authenticationManagerBuilder, TokenProvider tokenProvider, OtpService otpService) {
         this.authenticateService = authenticateService;
         this.authenticationManagerBuilder = authenticationManagerBuilder;
-        this.userService = userService;
         this.tokenProvider = tokenProvider;
+        this.otpService = otpService;
     }
 
-    @PostMapping("/signup")
-    public ResponseEntity<User> signup(@Valid @RequestBody UserDTO dto) {
-        return ResponseEntity.ok().body(authenticateService.signup(dto));
+     @PostMapping(Constants.Api.Path.Account.REGISTER)
+    public ResponseEntity<Boolean> registerUser(@Valid @RequestBody UserDTO dto) {
+        return ResponseEntity.ok().body(authenticateService.signup(dto, Constants.Role.USER));
     }
 
-    /*
-    Login api
-     */
-    @PostMapping("/login")
+
+    @PostMapping(Constants.Api.Path.Account.REGISTER + "Je")
+    public ResponseEntity<Boolean> registerJe(@Valid @RequestBody UserDTO dto) {
+        return ResponseEntity.ok().body(authenticateService.signup(dto, Constants.Role.JE));
+    }
+
+    @PostMapping(Constants.Api.Path.Account.CHANGE_PASSWORD)
+    public ResponseEntity<MessageDto> changePassword(@RequestBody UserDTO dto) {
+        return ResponseEntity.ok().body(authenticateService.changePassword(dto));
+    }
+
+    @GetMapping(Constants.Api.Path.Account.ACTIVE_ACCOUNT)
+    public ResponseEntity<String> activeAccount(@RequestParam("otp") String otp, @RequestParam("id") Long userId) {
+        return ResponseEntity.ok().body(authenticateService.activeAccount(otp, userId));
+    }
+
+    @PostMapping(Constants.Api.Path.Account.RESET_PASSWORD_FINISH)
+    public ResponseEntity<MessageDto> resetPassword(@RequestBody UserDTO dto, @RequestParam String email) {
+        dto.setEmail(email);
+        System.out.println(dto.getEmail());
+        return ResponseEntity.ok().body(authenticateService.changePassword(dto));
+    }
+
+    @PostMapping(Constants.Api.Path.Account.RESET_PASSWORD_INIT)
+    public ResponseEntity<MessageDto> resetPasswordInit(@RequestBody UserDTO dto) {
+        return ResponseEntity.ok().body(otpService.sendOtp(dto));
+    }
+
+    @PostMapping(Constants.Api.Path.Auth.LOGIN)
     public ResponseEntity<?> authenticateAdmin(@Valid @RequestBody LoginVM loginVM) {
 //		Tạo chuỗi authentication từ username và password (object LoginRequest
 //		- file này chỉ là 1 class bình thường, chứa 2 trường username và password)
