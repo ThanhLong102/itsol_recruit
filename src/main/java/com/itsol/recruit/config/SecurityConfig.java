@@ -5,7 +5,6 @@ import com.itsol.recruit.security.jwt.JWTConfigurer;
 import com.itsol.recruit.security.jwt.TokenProvider;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
