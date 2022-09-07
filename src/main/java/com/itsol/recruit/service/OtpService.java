@@ -4,9 +4,7 @@ import com.itsol.recruit.dto.MessageDto;
 import com.itsol.recruit.dto.UserDTO;
 import com.itsol.recruit.entity.OTP;
 import com.itsol.recruit.entity.User;
-import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 
