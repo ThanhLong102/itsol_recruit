@@ -78,8 +78,6 @@ public class AuthenticateController {
 
     @PostMapping(Constants.Api.Path.Auth.LOGIN)
     public ResponseEntity<?> authenticateAdmin(@Valid @RequestBody LoginVM loginVM) {
-//		Tạo chuỗi authentication từ username và password (object LoginRequest
-//		- file này chỉ là 1 class bình thường, chứa 2 trường username và password)
         UsernamePasswordAuthenticationToken authenticationString = new UsernamePasswordAuthenticationToken(
                 loginVM.getUserName(),
                 loginVM.getPassword()
@@ -90,10 +88,6 @@ public class AuthenticateController {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add(JWTFilter.AUTHORIZATION_HEADER, String.format("Bearer %s", jwt));
         return new ResponseEntity<>(Collections.singletonMap("token", jwt), httpHeaders, HttpStatus.OK); //Trả về chuỗi jwt(authentication string)
-
-//        User userLogin = userService.findUserByUserName(adminLoginVM.getUserName());
-//        return ResponseEntity.ok().body(new JWTTokenResponse(jwt, userLogin.getUserName())); //Trả về chuỗi jwt(authentication string)
-
     }
 
 }

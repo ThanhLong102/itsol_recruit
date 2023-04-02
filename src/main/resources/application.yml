@@ -8,12 +8,9 @@ server:
 spring:
   datasource:
     driver-class-name: oracle.jdbc.driver.OracleDriver
-#    url: jdbc:oracle:thin:@localhost:1521:ORCL
-#    username: TUANKIET
-#    password: phamtuankiet
     url: jdbc:oracle:thin:@localhost:1521:xe
     username: team2
-    password: wibu123456
+    password: anhhieu123
 
 
   jpa:
@@ -24,8 +21,8 @@ spring:
 
   mail:
     host: smtp.gmail.com
-    username: daido7031@gmail.com
-    password: leerskmrmfogjnpx
+    username: thanhlonghoangdao1101@gmail.com
+    password: rhbmavhlnxzdagas
     port: 587
     properties:
       mail:
@@ -44,6 +41,4 @@ application:
 logging:
   level:
     ROOT: DEBUG
-
-
 

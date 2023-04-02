@@ -86,7 +86,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(User user) {
-        System.out.println("user input: " + user.toString());
         return userRepository.save(user);
     }
 
